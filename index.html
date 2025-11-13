@@ -1,35 +1,152 @@
-<DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Spill til stasjoner</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Test test </title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f5f5ff;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
 
-<style>
-        p {
-            color: red
-        }
+    .container {
+      max-width: 1000px;
+      width: 100%;
+      padding: 16px;
+      box-sizing: border-box;
+      text-align: center;
+    }
 
-        h1 {
-            color: blue
-        }
-</style>
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 24px;
+      color: #333366;
+    }
 
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 20px;
+    }
 
-    <body>
+    .game-button {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
 
+      height: 180px;
+      padding: 20px;
+      border-radius: 20px;
 
-     <h1>Tittel</h1>
-        <p>Her er det ingenting...</p>  
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: white;
 
-        <p style="color:black">Eller? </p>
+      background: #ff8a65;
+      box-shadow: 0 6px 0 #d96b49;
 
-        <p>Hei I og AL! Dette er internett som ringer</p>
-    </body>
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .game-button img {
+      width: 48px;
+      height: 48px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+    }
+
+    /* Hover animation (desktop only) */
+    @media (hover: hover) {
+      .game-button:hover {
+        transform: translateY(-6px) scale(1.05);
+        box-shadow: 0 10px 0 rgba(0,0,0,0.25);
+      }
+    }
+
+    /* Tap animation */
+    .game-button:active {
+      transform: translateY(2px);
+      box-shadow: 0 2px 0 rgba(0,0,0,0.2);
+    }
+
+    /* Fun color variations */
+    .game-button:nth-child(2n) { background: #4db6ac; box-shadow: 0 6px 0 #3b9088; }
+    .game-button:nth-child(3n) { background: #9575cd; box-shadow: 0 6px 0 #7157a1; }
+    .game-button:nth-child(4n) { background: #f06292; box-shadow: 0 6px 0 #c14b71; }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Spill til stasjoner – Gakori skole</h1>
+
+    <div class="button-grid">
+
+      <a class="game-button" href="https://vaultlearninggames.org/cat-insanity" target="_blank">
+        <img src="https://www.google.com/s2/favicons?domain=vaultlearninggames.org&sz=64">
+        Cat Insanity
+      </a>
+
+      <a class="game-button" href="https://phet.colorado.edu/sims/html/balancing-act/latest/balancing-act_en.html" target="_blank">
+        <img src="https://www.google.com/s2/favicons?domain=phet.colorado.edu&sz=64">
+        Balancing Act
+      </a>
+
+      <a class="game-button" href="https://fielddaylab.org/play/lakeland/" target="_blank">
+        <img src="https://www.google.com/s2/favicons?domain=fielddaylab.org&sz=64">
+        Lakeland
+      </a>
+
+      <a class="game-button" href="https://www.additionblocksgame.com/mxblocks/" target="_blank">
+        <img src="https://www.google.com/s2/favicons?domain=additionblocksgame.com&sz=64">
+        Multiplication Blocks
+      </a>
+
+      <a class="game-button" href="https://game-cdn.legendsoflearning.com/content-deploy/4452/EcoKingdoms-Interactions_427/index.html" target="_blank">
+        <img src="https://www.google.com/s2/favicons?domain=legendsoflearning.com&sz=64">
+        Eco Kingdoms
+      </a>
+
+      <a class="game-button" href="https://playmoneymagic.com/" target="_blank">
+        <img src="https://www.google.com/s2/favicons?domain=playmoneymagic.com&sz=64">
+        Money Magic
+      </a>
+
+      <a class="game-button" href="https://www.mathplayground.com/addition_blocks/index.html" target="_blank">
+        <img src="https://www.google.com/s2/favicons?domain=mathplayground.com&sz=64">
+        Addition Blocks
+      </a>
+
+      <a class="game-button" href="https://academy.allaboutbirds.org/features/flaptothefuture/" target="_blank">
+        <img src="https://www.google.com/s2/favicons?domain=allaboutbirds.org&sz=64">
+        Flap to the Future
+      </a>
+
+      <a class="game-button" href="https://codedex.io/courses" target="_blank">
+        <img src="https://www.google.com/s2/favicons?domain=codedex.io&sz=64">
+        Codedex
+      </a>
+
+      <a class="game-button" href="https://sudoku.com" target="_blank">
+        <img src="https://www.google.com/s2/favicons?domain=sudoku.com&sz=64">
+        Sudoku
+      </a>
+
+      <a class="game-button" href="https://quickdraw.withgoogle.com" target="_blank">
+        <img src="https://www.google.com/s2/favicons?domain=withgoogle.com&sz=64">
+        Quick, Draw!
+      </a>
+
+    </div>
+  </div>
+</body>
 </html>
-
-
