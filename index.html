@@ -64,6 +64,12 @@
       border-radius: 8px;
     }
 
+    .emoji-icon {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    /* Hover animation (desktop only) */
     @media (hover: hover) {
       .game-button:hover {
         transform: translateY(-6px) scale(1.05);
@@ -71,6 +77,7 @@
       }
     }
 
+    /* Tap animation */
     .game-button:active {
       transform: translateY(2px);
       box-shadow: 0 2px 0 rgba(0,0,0,0.2);
@@ -89,65 +96,75 @@
 
     <div class="button-grid">
 
+      <!-- Cat Insanity – emoji icon (no reliable favicon) -->
       <a class="game-button" href="https://vaultlearninggames.org/cat-insanity" target="_blank">
-        <img src="https://www.google.com/s2/favicons?domain=vaultlearninggames.org&sz=64">
+        <span class="emoji-icon" aria-hidden="true">😺</span>
         Cat Insanity
       </a>
 
       <a class="game-button" href="https://phet.colorado.edu/sims/html/balancing-act/latest/balancing-act_en.html" target="_blank">
-        <img src="https://www.google.com/s2/favicons?domain=phet.colorado.edu&sz=64">
+        <img src="https://www.google.com/s2/favicons?domain=phet.colorado.edu&sz=64" alt="">
         Balancing Act
       </a>
 
       <a class="game-button" href="https://fielddaylab.org/play/lakeland/" target="_blank">
-        <img src="https://www.google.com/s2/favicons?domain=fielddaylab.org&sz=64">
+        <img src="https://www.google.com/s2/favicons?domain=fielddaylab.org&sz=64" alt="">
         Lakeland
       </a>
 
+      <!-- Multiplication Blocks – emoji icon -->
       <a class="game-button" href="https://www.additionblocksgame.com/mxblocks/" target="_blank">
-        <img src="https://www.google.com/s2/favicons?domain=additionblocksgame.com&sz=64">
+        <span class="emoji-icon" aria-hidden="true">✖️</span>
         Multiplication Blocks
       </a>
 
       <a class="game-button" href="https://game-cdn.legendsoflearning.com/content-deploy/4452/EcoKingdoms-Interactions_427/index.html" target="_blank">
-        <img src="https://www.google.com/s2/favicons?domain=legendsoflearning.com&sz=64">
+        <img src="https://www.google.com/s2/favicons?domain=legendsoflearning.com&sz=64" alt="">
         Eco Kingdoms
       </a>
 
+      <!-- Money Magic – emoji icon -->
       <a class="game-button" href="https://playmoneymagic.com/" target="_blank">
-        <img src="https://www.google.com/s2/favicons?domain=playmoneymagic.com&sz=64">
+        <span class="emoji-icon" aria-hidden="true">💰</span>
         Money Magic
       </a>
 
       <a class="game-button" href="https://www.mathplayground.com/addition_blocks/index.html" target="_blank">
-        <img src="https://www.google.com/s2/favicons?domain=mathplayground.com&sz=64">
+        <img src="https://www.google.com/s2/favicons?domain=mathplayground.com&sz=64" alt="">
         Addition Blocks
       </a>
 
       <a class="game-button" href="https://academy.allaboutbirds.org/features/flaptothefuture/" target="_blank">
-        <img src="https://www.google.com/s2/favicons?domain=allaboutbirds.org&sz=64">
+        <img src="https://www.google.com/s2/favicons?domain=allaboutbirds.org&sz=64" alt="">
         Flap to the Future
       </a>
 
       <a class="game-button" href="https://codedex.io/courses" target="_blank">
-        <img src="https://www.google.com/s2/favicons?domain=codedex.io&sz=64">
+        <img src="https://www.google.com/s2/favicons?domain=codedex.io&sz=64" alt="">
         Codedex
       </a>
 
       <a class="game-button" href="https://sudoku.com" target="_blank">
-        <img src="https://www.google.com/s2/favicons?domain=sudoku.com&sz=64">
+        <img src="https://www.google.com/s2/favicons?domain=sudoku.com&sz=64" alt="">
         Sudoku
       </a>
 
       <a class="game-button" href="https://quickdraw.withgoogle.com" target="_blank">
-        <img src="https://www.google.com/s2/favicons?domain=withgoogle.com&sz=64">
+        <img src="https://www.google.com/s2/favicons?domain=withgoogle.com&sz=64" alt="">
         Quick, Draw!
       </a>
 
-<a class="game-button" href="https://lichess.org" target="_blank">
-  <img src="https://lichess.org/assets/favicon-256.png">
-  Lichess
-</a>
+      <!-- Lichess – using official lichess icon -->
+      <a class="game-button" href="https://lichess.org" target="_blank">
+        <img src="https://lichess1.org/assets/logo/lichess-favicon-128.png" alt="">
+        Lichess
+      </a>
+
+      <!-- Seterra / GeoGuessr -->
+      <a class="game-button" href="https://www.geoguessr.com/quiz/seterra" target="_blank">
+        <img src="https://www.google.com/s2/favicons?domain=geoguessr.com&sz=64" alt="">
+        Seterra: Geography Games
+      </a>
 
     </div>
   </div>
