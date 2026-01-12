@@ -1,219 +1,324 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="no">
 <head>
   <meta charset="UTF-8" />
-  <title>Spill til stasjoner</title>
+  <title>Spill og nettsider for 7. trinn - Gakori</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
-    body {
-      margin: 0;
+    :root{
+      --bg:#f5f5ff;
+      --ink:#2b2b55;
+      --muted:#6b6b8e;
+      --card:#ffffff;
+      --shadow: 0 10px 25px rgba(30,30,60,.08);
+      --radius:18px;
+
+      --math:#f28b65;
+      --coding:#4db6ac;
+      --english:#9575cd;
+      --games:#f06292;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #f5f5ff;
-      display: flex;
-      justify-content: center;
-      padding: 20px;
+      background:var(--bg);
+      color:var(--ink);
     }
 
-    .container {
-      max-width: 900px;
-      width: 100%;
-      padding: 16px;
-      box-sizing: border-box;
+    .container{
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 22px 16px 40px;
     }
 
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 12px;
-      color: #333366;
-      text-align: center;
+    h1{
+      text-align:center;
+      font-size: 2.1rem;
+      margin: 10px 0 18px;
+      letter-spacing: .2px;
     }
 
-    .category {
-      margin-top: 28px;
+    /* Sticky category chips */
+    .chipbar{
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(245,245,255,.92);
+      backdrop-filter: blur(10px);
+      padding: 10px 0 12px;
+      margin: 0 0 18px;
     }
 
-    .category-title {
-      font-size: 1.4rem;
+    .chips{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      text-decoration:none;
       font-weight: 700;
-      color: #333366;
-      margin-bottom: 10px;
-    }
-
-    .game-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .game-button {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-
-      padding: 14px 18px;
-      border-radius: 18px;
-
-      text-decoration: none;
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: white;
-
-      box-shadow: 0 4px 0 rgba(0,0,0,0.18);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      font-size: 1rem;
+      color: var(--ink);
+      background: var(--card);
+      box-shadow: 0 6px 16px rgba(30,30,60,.08);
+      border: 1px solid rgba(60,60,120,.10);
       -webkit-tap-highlight-color: transparent;
     }
-
-    .game-button img {
-      width: 40px;
-      height: 40px;
-      border-radius: 10px;
-      flex-shrink: 0;
+    .dot{
+      width:10px; height:10px; border-radius:999px;
+      display:inline-block;
     }
 
-    .emoji-icon {
-      font-size: 2rem;
-      flex-shrink: 0;
+    /* Category sections as cards */
+    .section{
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px;
+      margin: 0 0 18px;
+      border: 1px solid rgba(60,60,120,.08);
     }
 
-    /* Hover animation (desktop only) */
-    @media (hover: hover) {
-      .game-button:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 7px 0 rgba(0,0,0,0.22);
+    .section-header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      margin-bottom: 12px;
+      gap: 12px;
+    }
+
+    .section-title{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-size: 1.35rem;
+      font-weight: 800;
+      margin: 0;
+    }
+
+    .count{
+      color: var(--muted);
+      font-weight: 700;
+      font-size: .95rem;
+    }
+
+    /* Grid of “tiles” inside each category */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    @media (max-width: 640px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+
+    /* Tile button */
+    .tile{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      padding: 14px 14px;
+      border-radius: 16px;
+      text-decoration:none;
+      background: #ffffff;
+      border: 1px solid rgba(60,60,120,.10);
+      box-shadow: 0 6px 14px rgba(30,30,60,.06);
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .12s ease, box-shadow .12s ease;
+      min-height: 64px; /* nice tap target */
+    }
+
+    .tile:active{
+      transform: translateY(1px);
+      box-shadow: 0 3px 10px rgba(30,30,60,.08);
+    }
+
+    @media (hover:hover){
+      .tile:hover{
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(30,30,60,.10);
       }
     }
 
-    /* Tap animation */
-    .game-button:active {
-      transform: translateY(2px);
-      box-shadow: 0 2px 0 rgba(0,0,0,0.18);
+    .icon{
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display:grid;
+      place-items:center;
+      flex: 0 0 44px;
+      background: rgba(0,0,0,.04);
+      overflow:hidden;
     }
 
-    /* Category colors */
-    .category--math   .game-button { background: #f28b65; }
-    .category--coding .game-button { background: #4db6ac; }
-    .category--english .game-button { background: #9575cd; }
-    .category--games  .game-button { background: #f06292; }
+    .icon img{
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display:block;
+    }
+
+    .emoji{
+      font-size: 1.6rem;
+      line-height: 1;
+    }
+
+    .title{
+      font-weight: 800;
+      font-size: 1.05rem;
+      color: var(--ink);
+    }
+
+    /* Category accent stripe on the left */
+    .tile[data-cat="math"]    { border-left: 8px solid var(--math); }
+    .tile[data-cat="coding"]  { border-left: 8px solid var(--coding); }
+    .tile[data-cat="english"] { border-left: 8px solid var(--english); }
+    .tile[data-cat="games"]   { border-left: 8px solid var(--games); }
 
   </style>
 </head>
+
 <body>
   <div class="container">
     <h1>Spill og nettsider for 7. trinn - Gakori</h1>
 
-    <!-- MATEMATIKK -->
-    <section class="category category--math">
-      <div class="category-title">Matematikk</div>
-      <div class="game-list">
+    <div class="chipbar">
+      <div class="chips">
+        <a class="chip" href="#matte"><span class="dot" style="background:var(--math)"></span>Matematikk</a>
+        <a class="chip" href="#koding"><span class="dot" style="background:var(--coding)"></span>Koding</a>
+        <a class="chip" href="#engelsk"><span class="dot" style="background:var(--english)"></span>Engelsk</a>
+        <a class="chip" href="#spill"><span class="dot" style="background:var(--games)"></span>Spill</a>
+      </div>
+    </div>
 
-        <a class="game-button" href="https://phet.colorado.edu/sims/html/balancing-act/latest/balancing-act_en.html" target="_blank">
-          <img src="https://www.google.com/s2/favicons?domain=phet.colorado.edu&sz=64" alt="">
-          <span>Balancing Act</span>
+    <!-- Matematikk -->
+    <section class="section" id="matte">
+      <div class="section-header">
+        <h2 class="section-title"><span class="dot" style="background:var(--math)"></span>Matematikk</h2>
+        <div class="count">6 lenker</div>
+      </div>
+
+      <div class="grid">
+        <a class="tile" data-cat="math" href="https://phet.colorado.edu/sims/html/balancing-act/latest/balancing-act_en.html" target="_blank">
+          <span class="icon"><img src="https://www.google.com/s2/favicons?domain=phet.colorado.edu&sz=64" alt=""></span>
+          <span class="title">Balancing Act</span>
         </a>
 
-        <a class="game-button" href="https://www.additionblocksgame.com/mxblocks/" target="_blank">
-          <span class="emoji-icon" aria-hidden="true">✖️</span>
-          <span>Multiplication Blocks</span>
+        <a class="tile" data-cat="math" href="https://www.additionblocksgame.com/mxblocks/" target="_blank">
+          <span class="icon"><span class="emoji">✖️</span></span>
+          <span class="title">Multiplication Blocks</span>
         </a>
 
-        <a class="game-button" href="https://playmoneymagic.com/" target="_blank">
-          <span class="emoji-icon" aria-hidden="true">💰</span>
-          <span>Money Magic</span>
+        <a class="tile" data-cat="math" href="https://playmoneymagic.com/" target="_blank">
+          <span class="icon"><span class="emoji">💰</span></span>
+          <span class="title">Money Magic</span>
         </a>
 
-        <a class="game-button" href="https://www.mathplayground.com/addition_blocks/index.html" target="_blank">
-          <img src="https://www.google.com/s2/favicons?domain=mathplayground.com&sz=64" alt="">
-          <span>Addition Blocks</span>
+        <a class="tile" data-cat="math" href="https://www.mathplayground.com/addition_blocks/index.html" target="_blank">
+          <span class="icon"><img src="https://www.google.com/s2/favicons?domain=mathplayground.com&sz=64" alt=""></span>
+          <span class="title">Addition Blocks</span>
         </a>
 
-        <a class="game-button" href="https://sudoku.com" target="_blank">
-          <img src="https://www.google.com/s2/favicons?domain=sudoku.com&sz=64" alt="">
-          <span>Sudoku</span>
+        <a class="tile" data-cat="math" href="https://sudoku.com" target="_blank">
+          <span class="icon"><img src="https://www.google.com/s2/favicons?domain=sudoku.com&sz=64" alt=""></span>
+          <span class="title">Sudoku</span>
         </a>
 
-        <a class="game-button" href="https://vaultlearninggames.org/cat-insanity" target="_blank">
-          <span class="emoji-icon" aria-hidden="true">😺</span>
-          <span>Cat Insanity</span>
+        <a class="tile" data-cat="math" href="https://vaultlearninggames.org/cat-insanity" target="_blank">
+          <span class="icon"><span class="emoji">😺</span></span>
+          <span class="title">Cat Insanity</span>
         </a>
-
       </div>
     </section>
 
-    <!-- KODING -->
-    <section class="category category--coding">
-      <div class="category-title">Koding</div>
-      <div class="game-list">
+    <!-- Koding -->
+    <section class="section" id="koding">
+      <div class="section-header">
+        <h2 class="section-title"><span class="dot" style="background:var(--coding)"></span>Koding</h2>
+        <div class="count">2 lenker</div>
+      </div>
 
-        <a class="game-button" href="https://codedex.io/courses" target="_blank">
-          <img src="https://www.google.com/s2/favicons?domain=codedex.io&sz=64" alt="">
-          <span>Codedex</span>
+      <div class="grid">
+        <a class="tile" data-cat="coding" href="https://codedex.io/courses" target="_blank">
+          <span class="icon"><img src="https://www.google.com/s2/favicons?domain=codedex.io&sz=64" alt=""></span>
+          <span class="title">Codedex</span>
         </a>
 
-        <a class="game-button" href="https://codecombat.com/students" target="_blank">
-  <img src="https://www.google.com/s2/favicons?domain=codecombat.com&sz=64" alt="">
-  <span>CodeCombat</span>
-</a>
-
+        <a class="tile" data-cat="coding" href="https://codecombat.com/students" target="_blank">
+          <span class="icon"><img src="https://www.google.com/s2/favicons?domain=codecombat.com&sz=64" alt=""></span>
+          <span class="title">CodeCombat</span>
+        </a>
       </div>
     </section>
 
-    <!-- ENGELSK -->
-    <section class="category category--english">
-      <div class="category-title">Engelsk</div>
-      <div class="game-list">
+    <!-- Engelsk -->
+    <section class="section" id="engelsk">
+      <div class="section-header">
+        <h2 class="section-title"><span class="dot" style="background:var(--english)"></span>Engelsk</h2>
+        <div class="count">6 lenker</div>
+      </div>
 
-        <a class="game-button" href="https://wordleunlimited.org/" target="_blank">
-        <img src="https://www.google.com/s2/favicons?domain=wordleunlimited.org&sz=64" alt="">
-        <span>Wordle</span>
-        </a>
-        <a class="game-button" href="https://www.geoguessr.com/quiz/seterra" target="_blank">
-          <img src="https://www.google.com/s2/favicons?domain=geoguessr.com&sz=64" alt="">
-          <span>Seterra: Geography Games</span>
-        </a>
-        <a class="game-button" href="https://globle-game.com/game" target="_blank">
-          <img src="https://globle-game.com/assets/globle-BHn4RDQX.png" alt="">
-          <span>Globle</span>
+      <div class="grid">
+        <a class="tile" data-cat="english" href="https://www.getepic.com/students" target="_blank">
+          <span class="icon"><img src="https://www.google.com/s2/favicons?domain=getepic.com&sz=64" alt=""></span>
+          <span class="title">Epic!</span>
         </a>
 
-        <a class="game-button" href="https://fielddaylab.org/play/lakeland/" target="_blank">
-          <img src="https://www.google.com/s2/favicons?domain=fielddaylab.org&sz=64" alt="">
-          <span>Lakeland</span>
+        <a class="tile" data-cat="english" href="https://wordleunlimited.org/" target="_blank">
+          <span class="icon"><img src="https://www.google.com/s2/favicons?domain=wordleunlimited.org&sz=64" alt=""></span>
+          <span class="title">Wordle</span>
         </a>
 
-        <a class="game-button" href="https://game-cdn.legendsoflearning.com/content-deploy/4452/EcoKingdoms-Interactions_427/index.html" target="_blank">
-          <img src="https://www.google.com/s2/favicons?domain=legendsoflearning.com&sz=64" alt="">
-          <span>Eco Kingdoms</span>
+        <a class="tile" data-cat="english" href="https://www.geoguessr.com/quiz/seterra" target="_blank">
+          <span class="icon"><img src="https://www.google.com/s2/favicons?domain=geoguessr.com&sz=64" alt=""></span>
+          <span class="title">Seterra</span>
         </a>
 
-        <a class="game-button" href="https://academy.allaboutbirds.org/features/flaptothefuture/" target="_blank">
-          <img src="https://www.google.com/s2/favicons?domain=allaboutbirds.org&sz=64" alt="">
-          <span>Flap to the Future</span>
+        <a class="tile" data-cat="english" href="https://fielddaylab.org/play/lakeland/" target="_blank">
+          <span class="icon"><img src="https://www.google.com/s2/favicons?domain=fielddaylab.org&sz=64" alt=""></span>
+          <span class="title">Lakeland</span>
         </a>
 
-        <a class="game-button" href="https://www.getepic.com/students" target="_blank">
-          <img src="https://www.google.com/s2/favicons?domain=getepic.com&sz=64" alt="">
-          <span>Epic!</span>
+        <a class="tile" data-cat="english" href="https://game-cdn.legendsoflearning.com/content-deploy/4452/EcoKingdoms-Interactions_427/index.html" target="_blank">
+          <span class="icon"><img src="https://www.google.com/s2/favicons?domain=legendsoflearning.com&sz=64" alt=""></span>
+          <span class="title">Eco Kingdoms</span>
         </a>
 
+        <a class="tile" data-cat="english" href="https://academy.allaboutbirds.org/features/flaptothefuture/" target="_blank">
+          <span class="icon"><img src="https://www.google.com/s2/favicons?domain=allaboutbirds.org&sz=64" alt=""></span>
+          <span class="title">Flap to the Future</span>
+        </a>
       </div>
     </section>
 
-    <!-- SPILL -->
-    <section class="category category--games">
-      <div class="category-title">Spill</div>
-      <div class="game-list">
+    <!-- Spill -->
+    <section class="section" id="spill">
+      <div class="section-header">
+        <h2 class="section-title"><span class="dot" style="background:var(--games)"></span>Spill</h2>
+        <div class="count">2 lenker</div>
+      </div>
 
-        <a class="game-button" href="https://quickdraw.withgoogle.com" target="_blank">
-          <img src="https://www.google.com/s2/favicons?domain=withgoogle.com&sz=64" alt="">
-          <span>Quick, Draw!</span>
+      <div class="grid">
+        <a class="tile" data-cat="games" href="https://quickdraw.withgoogle.com" target="_blank">
+          <span class="icon"><img src="https://www.google.com/s2/favicons?domain=withgoogle.com&sz=64" alt=""></span>
+          <span class="title">Quick, Draw!</span>
         </a>
 
-        <a class="game-button" href="https://lichess.org" target="_blank">
-          <img src="https://lichess1.org/assets/logo/lichess-favicon-128.png" alt="">
-          <span>Lichess</span>
+        <a class="tile" data-cat="games" href="https://lichess.org" target="_blank">
+          <span class="icon"><img src="https://lichess1.org/assets/logo/lichess-favicon-128.png" alt=""></span>
+          <span class="title">Lichess</span>
         </a>
-
       </div>
     </section>
 
